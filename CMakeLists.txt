@@ -3,11 +3,11 @@ project(OkapiLibV5)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
 if(CMAKE_COMPILER_IS_GNUCXX)
-    include(CodeCoverage)
-    setup_target_for_coverage(${PROJECT_NAME}_coverage tests coverage)
+    #include(CodeCoverage)
+    #setup_target_for_coverage(${PROJECT_NAME}_coverage tests coverage)
 endif()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17 -Wall -Wextra -Wshadow -Wnull-dereference -Wno-psabi -Wno-unused-function -pthread -g -O0 -fprofile-arcs -ftest-coverage -D THREADS_STD")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17 -Wall -Wextra -Wshadow -Wnull-dereference -Wno-psabi -Wno-unused-function -pthread -g -D THREADS_STD")
 
 enable_testing()
 
@@ -45,7 +45,7 @@ endif()
 
 include_directories(include)
 
-add_executable(OkapiLibV5
+add_library(OkapiLibV5 STATIC
         include/okapi/api/chassis/controller/chassisController.hpp
         include/okapi/api/chassis/controller/chassisControllerIntegrated.hpp
         include/okapi/api/chassis/controller/chassisControllerPid.hpp
@@ -180,41 +180,8 @@ add_executable(OkapiLibV5
         src/pathfinder/followers/encoder.c
         src/pathfinder/modifiers/swerve.c
         src/pathfinder/modifiers/tank.c
-        test/buttonTests.cpp
-        test/controllerTests.cpp
-        test/controlTests.cpp
-        test/filterTests.cpp
-        test/hDriveModelTests.cpp
         test/implMocks.cpp
-        test/twoEncoderOdometryTests.cpp
-        test/utilTests.cpp
-        test/unitTests.cpp
-        test/loggerTests.cpp
-        test/skidSteerModelTests.cpp
-        test/xDriveModelTests.cpp
-        test/threeEncoderSkidSteerModelTests.cpp
-        test/chassisControllerIntegratedTests.cpp
-        test/chassisControllerPidTest.cpp
-        test/chassisScalesTests.cpp
-        test/asyncPosIntegratedControllerTests.cpp
-        test/asyncVelIntegratedControllerTests.cpp
-        test/asyncVelPIDControllerTests.cpp
-        test/asyncMotionProfileControllerTests.cpp
-        test/asyncLinearMotionProfileControllerTests.cpp
-        test/iterativeVelPIDControllerTests.cpp
-        test/iterativeMotorVelocityControllerTest.cpp
-        test/iterativePosPIDControllerTests.cpp
-        test/defaultOdomChassisControllerTest.cpp
-        test/asyncWrapperTests.cpp
-        test/offsettableControllerInputTests.cpp
-        test/asyncPosPIDControllerTests.cpp
-        test/threeEncoderOdometryTests.cpp
         include/okapi/api/odometry/point.hpp
-        test/odomMathTests.cpp
         include/okapi/api/odometry/stateMode.hpp
         include/okapi/api/odometry/odomState.hpp
-        src/api/odometry/odomState.cpp
-        test/threeEncoderXDriveModelTests.cpp)
-
-# Link against gtest
-target_link_libraries(OkapiLibV5 gtest_main)
+        src/api/odometry/odomState.cpp)
