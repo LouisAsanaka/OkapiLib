@@ -23,7 +23,6 @@
 #include "okapi/api/util/timeUtil.hpp"
 #include <atomic>
 #include <chrono>
-#include <gtest/gtest.h>
 
 namespace okapi {
 
@@ -407,22 +406,12 @@ void assertMotorsEncoderUnitsEquals(AbstractMotor::encoderUnits expected,
 
 template <typename I, typename O>
 void assertControllerIsSettledWhenDisabled(ClosedLoopController<I, O> &controller, I target) {
-  controller.flipDisable(false);
-  EXPECT_FALSE(controller.isDisabled());
-  controller.setTarget(target);
-  EXPECT_EQ(controller.getTarget(), target);
-  EXPECT_FALSE(controller.isSettled());
-
-  controller.flipDisable();
-  EXPECT_TRUE(controller.isDisabled());
-  EXPECT_TRUE(controller.isSettled());
+  
 }
 
 template <typename I, typename O>
 void assertWaitUntilSettledWorksWhenDisabled(AsyncController<I, O> &controller) {
-  controller.flipDisable(true);
-  EXPECT_TRUE(controller.isDisabled());
-  controller.waitUntilSettled();
+
 }
 
 void assertAsyncControllerFollowsDisableLifecycle(AsyncController<double, double> &controller,
