@@ -1,6 +1,4 @@
 /*
- * @author Ryan Benasutti, WPI
- *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -145,6 +143,21 @@ ChassisControllerBuilder &ChassisControllerBuilder::withSensors(const okapi::ADI
   return withSensors(std::make_shared<ADIEncoder>(ileft),
                      std::make_shared<ADIEncoder>(iright),
                      std::make_shared<ADIEncoder>(imiddle));
+}
+
+ChassisControllerBuilder &ChassisControllerBuilder::withSensors(const RotationSensor &ileft,
+                                                                const RotationSensor &iright) {
+  return withSensors(std::make_shared<RotationSensor>(ileft),
+                     std::make_shared<RotationSensor>(iright));
+}
+
+ChassisControllerBuilder &
+ChassisControllerBuilder::withSensors(const okapi::RotationSensor &ileft,
+                                      const okapi::RotationSensor &iright,
+                                      const okapi::RotationSensor &imiddle) {
+  return withSensors(std::make_shared<RotationSensor>(ileft),
+                     std::make_shared<RotationSensor>(iright),
+                     std::make_shared<RotationSensor>(imiddle));
 }
 
 ChassisControllerBuilder &ChassisControllerBuilder::withSensors(const IntegratedEncoder &ileft,

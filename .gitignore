@@ -21,3 +21,4 @@ latex/
 xml/
 venv/
 *.d/
+build/
